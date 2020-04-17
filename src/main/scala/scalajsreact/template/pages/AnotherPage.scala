@@ -36,8 +36,7 @@ object AnotherPage {
 
     // Use it
     def init(renderer: WebGLRenderer) = {
-      println("IM renererederning")
-
+      //println("rendering...")
       // TODO don't call unsafeGet()
       outerRef.unsafeGet().appendChild(renderer.domElement)
 //      outerRef.foreach(r => {
@@ -51,7 +50,8 @@ object AnotherPage {
     .initialState(State("Title goes here"))
     .renderBackend[Backend]
     .componentDidMount(cdm => Callback {
-        val innerWidth = 1024
+
+        val innerWidth = 1920
         val innerHeight = 768
 
         val scene = new Scene()
@@ -91,7 +91,7 @@ object AnotherPage {
             "height" -> 2
           ).asInstanceOf[TextGeometryParameters]
 
-          var textGeometry = new TextGeometry("Mike is truly the Best!", textGeometryParameters)
+          var textGeometry = new TextGeometry("Mike is deffo the Best!", textGeometryParameters)
 
           val meshPhongMaterialParameters = js.Dynamic.literal(
             "color" -> 0xaaaaaa,
