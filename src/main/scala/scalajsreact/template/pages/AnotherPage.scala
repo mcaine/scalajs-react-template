@@ -18,7 +18,7 @@ object AnotherPage {
 
   val component: Component[Unit, Unit, Unit, CtorType.Nullary] =
     ScalaComponent.builder
-      .static("AnotherPage")(<.div(Style.content, "Another page by MIKE"))
+      .static("AnotherPage")(<.div(^.id:="mikey", Style.content, "Another page by MIKE"))
       .build
 
   def apply() = component()
