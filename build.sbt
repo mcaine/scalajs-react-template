@@ -65,8 +65,8 @@ dependencyOverrides ++= Seq(
 )
 
 
-enablePlugins(WorkbenchPlugin)
+//enablePlugins(WorkbenchPlugin)
 // Live Reloading: WorkbenchPlugin must NOT be enabled at the same time
-//enablePlugins(WorkbenchSplicePlugin)
-//workbenchCompression := true
-//workbenchStartMode := WorkbenchStartModes.OnCompile
+enablePlugins(WorkbenchSplicePlugin)
+workbenchCompression := true
+workbenchStartMode := WorkbenchStartModes.OnCompile
