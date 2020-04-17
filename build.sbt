@@ -2,7 +2,7 @@ val v = new {
   val app = "1.0"
   val scala = "2.12.8"
   val scalaJSDom = "0.9.7"
-  val scalaJSReact = "1.4.2"
+  val scalaJSReact = "1.6.0"
   val scalaCss = "0.5.6"
   val reactJS = "16.8.6"
 }
