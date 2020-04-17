@@ -11,3 +11,7 @@ scalajs-react-template
 
 3. On your browser go to:
 http://localhost:12345/index.html
+
+### Three.js
+
+added Font, FontLoader
