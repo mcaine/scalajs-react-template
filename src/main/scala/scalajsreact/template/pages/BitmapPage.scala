@@ -39,6 +39,8 @@ object BitmapPage {
     renderer
   }
 
+
+
   def textMesh(font: Font, textStr: String) = {
     val textGeometryParameters = js.Dynamic.literal(
       "font" -> font,
@@ -56,6 +58,26 @@ object BitmapPage {
 
     var textMaterial = new MeshPhongMaterial(meshPhongMaterialParameters)
     var text = new Mesh(textGeometry, textMaterial)
+    text
+  }
+
+  def textMeshWithMaterial(font: Font, textStr: String, material: Material) = {
+    val textGeometryParameters = js.Dynamic.literal(
+      "font" -> font,
+      "size" -> 5,
+      "height" -> 5
+    ).asInstanceOf[TextGeometryParameters]
+
+    var textGeometry = new TextGeometry(textStr, textGeometryParameters)
+
+    val meshPhongMaterialParameters = js.Dynamic.literal(
+      "color" -> 0xaaaaaa,
+      "specular" -> 0x773333,
+      "shininess" -> 50
+    ).asInstanceOf[MeshPhongMaterialParameters]
+
+
+    var text = new Mesh(textGeometry, material)
     text
   }
 
@@ -83,11 +105,17 @@ object BitmapPage {
       camera.position.x = 34
       camera.position.y = 5
 
+      //addImageBitmap(,  )
+
       val fontLoader = new FontLoader()
-      fontLoader.load("fonts/Old computer St_Regular.json", font => {
-        println("Loadedd font...")
-        scene.add(textMesh(font, "Bitmap page"))
-        renderer.render(scene, camera)
+      fontLoader.load("fonts/Pacifico_Regular.json", font => {
+        //println("Loaded font...")
+        new TextureLoader().load("images/tup.jpg", texture => {
+            //println("Loaded the texture bitmap")
+            val material = new MeshBasicMaterial( js.Dynamic.literal( "map" -> texture ).asInstanceOf[MeshBasicMaterialParameters] )
+            scene.add(textMeshWithMaterial(font, "wtf Bitmap page", material))
+            renderer.render(scene, camera)
+          })
       })
     })
     .build
