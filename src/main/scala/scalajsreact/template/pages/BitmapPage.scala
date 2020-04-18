@@ -3,12 +3,11 @@ package scalajsreact.template.pages
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.html
-import scalacss.DevDefaults._
 import threejs._
 
 import scala.scalajs.js
 
-object YetAnotherPage {
+object BitmapPage {
 
   case class State(title: String)
 
@@ -18,7 +17,7 @@ object YetAnotherPage {
 
     def render(s: State) =
       <.div(
-        <.div(^.id := "mikeyx").withRef(outerRef)
+        <.div(^.id := "mikeyx2").withRef(outerRef)
       )
 
     // Use it
@@ -60,8 +59,8 @@ object YetAnotherPage {
     text
   }
 
-  val component = ScalaComponent.builder[Unit]("YetAnother")
-    .initialState(State("Initial State for YetAnother"))
+  val component = ScalaComponent.builder[Unit]("BitmapPage")
+    .initialState(State("Initial State for BitmapPage"))
     .renderBackend[Backend]
     .componentDidMount(cdm => Callback {
       val innerWidth = 1900
@@ -80,14 +79,14 @@ object YetAnotherPage {
       light.position.set(0, 0, 10)
       scene.add(light)
 
-      camera.position.z = 20
+      camera.position.z = 40
       camera.position.x = 34
       camera.position.y = 5
 
       val fontLoader = new FontLoader()
       fontLoader.load("fonts/Old computer St_Regular.json", font => {
-        println("Loaded font...")
-        scene.add(textMesh(font, "yet another page"))
+        println("Loadedd font...")
+        scene.add(textMesh(font, "Bitmap page"))
         renderer.render(scene, camera)
       })
     })

@@ -2,7 +2,7 @@ package scalajsreact.template.routes
 
 import scalajsreact.template.components.{Footer, TopNav}
 import scalajsreact.template.models.Menu
-import scalajsreact.template.pages.{AnotherPage, HomePage, YetAnotherPage}
+import scalajsreact.template.pages.{AnotherPage, BitmapPage, HomePage, YetAnotherPage}
 import japgolly.scalajs.react.extra.router.{Resolution, RouterConfigDsl, RouterCtl, _}
 import japgolly.scalajs.react.vdom.html_<^._
 
@@ -24,7 +24,7 @@ object AppRouter {
 
     (trimSlashes
       | staticRoute(root, Home) ~> render(HomePage())
-      | staticRoute(Path("#another"), Another) ~> render(YetAnotherPage())
+      | staticRoute(Path("#another"), Another) ~> render(BitmapPage())
       | itemRoutes)
       .notFound(redirectToPage(Home)(Redirect.Replace))
       .renderWith(layout)
