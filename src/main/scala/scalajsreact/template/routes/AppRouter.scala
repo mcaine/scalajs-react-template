@@ -2,7 +2,7 @@ package scalajsreact.template.routes
 
 import scalajsreact.template.components.{Footer, TopNav}
 import scalajsreact.template.models.Menu
-import scalajsreact.template.pages.{AnotherPage, BitmapPage, HomePage, YetAnotherPage}
+import scalajsreact.template.pages.{AnotherPage, BitmapPage, GeometryTestPage, HomePage, YetAnotherPage}
 import japgolly.scalajs.react.extra.router.{Resolution, RouterConfigDsl, RouterCtl, _}
 import japgolly.scalajs.react.vdom.html_<^._
 
@@ -13,6 +13,7 @@ object AppRouter {
   case object Home extends AppPage
   case class Items(p: Item) extends AppPage
   case object Another extends AppPage
+  case object Geometry extends AppPage
 
   val config = RouterConfigDsl[AppPage].buildConfig { dsl =>
     import dsl._
@@ -25,6 +26,7 @@ object AppRouter {
     (trimSlashes
       | staticRoute(root, Home) ~> render(HomePage())
       | staticRoute(Path("#another"), Another) ~> render(BitmapPage())
+      | staticRoute(Path("#geometry"), Geometry) ~> render(GeometryTestPage())
       | itemRoutes)
       .notFound(redirectToPage(Home)(Redirect.Replace))
       .renderWith(layout)
@@ -33,7 +35,8 @@ object AppRouter {
   val mainMenu = Vector(
     Menu("Home", Home),
     Menu("Items", Items(Item.Info)),
-    Menu("Another", Another)
+    Menu("Another", Another),
+    Menu("Geometry", Geometry)
   )
 
   def layout(c: RouterCtl[AppPage], r: Resolution[AppPage]) =
