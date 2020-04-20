@@ -129,13 +129,13 @@ package object geomtest {
       obj.position.y = Math.random() * 800 - 400
       obj.position.z = Math.random() * 800 - 400
 
-      obj.rotation.x = Math.random() * 2 * Math.PI
-      obj.rotation.y = Math.random() * 2 * Math.PI
-      obj.rotation.z = Math.random() * 2 * Math.PI
-
-      obj.scale.x = Math.random() + 0.5
-      obj.scale.y = Math.random() + 0.5
-      obj.scale.z = Math.random() + 0.5
+//      obj.rotation.x = Math.random() * 2 * Math.PI
+//      obj.rotation.y = Math.random() * 2 * Math.PI
+//      obj.rotation.z = Math.random() * 2 * Math.PI
+//
+//      obj.scale.x = Math.random() + 0.5
+//      obj.scale.y = Math.random() + 0.5
+//      obj.scale.z = Math.random() + 0.5
 
       obj
     }
