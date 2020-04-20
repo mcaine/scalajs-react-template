@@ -132,7 +132,8 @@ object BitmapPage {
 
           val objects: Seq[Object3D] = Seq(
             textMeshWithMaterial(font, "i do like it", material),
-            torushMeshFromMaterial(meshPhongMaterial())
+            //torushMeshFromMaterial(meshPhongMaterial())
+            torushMeshFromMaterial(material)
           )
 
           for (obj <- objects) {
