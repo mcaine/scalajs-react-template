@@ -9,6 +9,7 @@ import org.scalajs.dom.html
 import scala.scalajs.js
 
 object MoreTestPage {
+
   import geomtest._
 
   case class State(title: String)
@@ -79,48 +80,38 @@ object MoreTestPage {
       camera.position.x = 0
       camera.position.y = 0
 
+      val objects = randomCubes(100)
 
-//      new FontLoader().load("fonts/helvetiker_regular.typeface.json", font => {
-//        println("Loaded font...")
-
-//        new TextureLoader().load("images/tup.jpg", texture => {
-//          println("Loaded the texture bitmap")
-
-          //val material = new MeshBasicMaterial(js.Dynamic.literal("map" -> texture).asInstanceOf[MeshBasicMaterialParameters])
-
-          val objects = randomCubes(100)
-      
-          for (obj <- objects) {
-            scene.add(obj)
-          }
+      for (obj <- objects) {
+        scene.add(obj)
+      }
 
       var theta: Double = 0
       var radius = 500
 
-      def render()  = {
+      def render() = {
         theta = theta + 0.1
 
-        camera.position.x = radius * Math.sin( Math.PI * theta/180 )
-        camera.position.y = radius * Math.sin( Math.PI * theta/180 )
-        camera.position.z = radius * Math.cos( Math.PI * theta/180 )
-        camera.lookAt( scene.position );
+        camera.position.x = radius * Math.sin(Math.PI * theta / 180)
+        camera.position.y = radius * Math.sin(Math.PI * theta / 180)
+        camera.position.z = radius * Math.cos(Math.PI * theta / 180)
+        camera.lookAt(scene.position);
         camera.updateMatrixWorld();
         renderer.render(scene, camera)
       }
 
-      def animate(p: Double):Unit  = {
+      def animate(p: Double): Unit = {
         println("animation frame")
-        window.requestAnimationFrame( animate );
+        window.requestAnimationFrame(animate);
         render();
       }
 
       animate(0)
 
 
-//      })
+      //      })
     })
     .build
-
 
 
   def apply() = component()
