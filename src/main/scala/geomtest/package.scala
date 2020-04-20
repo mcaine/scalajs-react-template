@@ -1,4 +1,4 @@
-import mikey.threejs.Font
+import mikey.threejs.{BoxBufferGeometry, ConeBufferGeometry, Font, TextBufferGeometry}
 import org.denigma.threejs.{BoxGeometry, Color, DirectionalLight, Material, Mesh, MeshBasicMaterial, MeshBasicMaterialParameters, MeshLambertMaterial, MeshLambertMaterialParameters, MeshPhongMaterial, MeshPhongMaterialParameters, Object3D, PerspectiveCamera, Scene, TextGeometry, TextGeometryParameters, TorusGeometry, Vector3, WebGLRenderer, WebGLRendererParameters}
 
 import scala.scalajs.js
@@ -60,6 +60,56 @@ package object geomtest {
     cubes
   }
 
+  def randomCubesUsingBufferGeometry(n: Integer) = {
+    var geometry = new BoxBufferGeometry( 50, 50, 50 );
+
+    val cubes = for (i <- 1 to n) yield {
+      val material = randomMeshLambert()
+      val obj = new Mesh(geometry, material)
+
+      obj.position.x = Math.random() * 800 - 400
+      obj.position.y = Math.random() * 800 - 400
+      obj.position.z = Math.random() * 800 - 400
+
+      obj.rotation.x = Math.random() * 2 * Math.PI
+      obj.rotation.y = Math.random() * 2 * Math.PI
+      obj.rotation.z = Math.random() * 2 * Math.PI
+
+      //obj.scale.x = Math.random() + 0.5
+      //obj.scale.y = Math.random() + 0.5
+      //obj.scale.z = Math.random() + 0.5
+
+      obj
+    }
+
+    cubes
+  }
+
+  def randomConesUsingBufferGeometry(n: Integer) = {
+    var geometry = new ConeBufferGeometry( 15, 150, 0 );
+
+    val cones = for (i <- 1 to n) yield {
+      val material = randomMeshLambert()
+      val obj = new Mesh(geometry, material)
+
+      obj.position.x = Math.random() * 800 - 400
+      obj.position.y = Math.random() * 800 - 400
+      obj.position.z = Math.random() * 800 - 400
+
+      obj.rotation.x = Math.random() * 2 * Math.PI
+      obj.rotation.y = Math.random() * 2 * Math.PI
+      obj.rotation.z = Math.random() * 2 * Math.PI
+
+      //obj.scale.x = Math.random() + 0.5
+      //obj.scale.y = Math.random() + 0.5
+      //obj.scale.z = Math.random() + 0.5
+
+      obj
+    }
+
+    cones
+  }
+
   def randomText(font: Font, textStr: String, n: Integer) = {
 
     val objects = for (i <- 1 to n) yield {
@@ -71,7 +121,8 @@ package object geomtest {
          "height" -> (5 + 5 * Math.random())
       ).asInstanceOf[TextGeometryParameters]
 
-      var textGeometry = new TextGeometry(textStr, textGeometryParameters)
+      //var textGeometry = new TextGeometry(textStr, textGeometryParameters)
+      var textGeometry = new TextBufferGeometry(textStr, textGeometryParameters)
 
       val obj = new Mesh(textGeometry, material)
       obj.position.x = Math.random() * 800 - 400

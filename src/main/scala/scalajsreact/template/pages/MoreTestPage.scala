@@ -62,7 +62,8 @@ object MoreTestPage {
 
       val scene = sceneWithLights()
 
-      val objects = randomCubes(200)
+      //val objects = randomCubesUsingBufferGeometry(200)
+      val objects = randomConesUsingBufferGeometry(200)
 
       for (obj <- objects) {
         scene.add(obj)

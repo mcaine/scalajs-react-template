@@ -97,7 +97,7 @@ object AnotherPage {
       new FontLoader().load("fonts/Pacifico_Regular.json", font => {
         println("Loaded font...")
 
-        val objects = randomText(font, "Turmp", 100)
+        val objects = randomText(font, "tumpy", 100)
 
         for (obj <- objects) {
           scene.add(obj)
