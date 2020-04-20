@@ -11,12 +11,15 @@ name := "scalajs-react-template"
 version := v.app
 scalaVersion := v.scala
 
+resolvers += sbt.Resolver.bintrayRepo("denigma", "denigma-releases")
+
 libraryDependencies ++= Seq(
   "org.scala-js" %%% "scalajs-dom" % v.scalaJSDom,
   "com.github.japgolly.scalajs-react" %%% "core" % v.scalaJSReact,
   "com.github.japgolly.scalajs-react" %%% "extra" % v.scalaJSReact,
   "com.github.japgolly.scalacss" %%% "core" % v.scalaCss,
-  "com.github.japgolly.scalacss" %%% "ext-react" % v.scalaCss
+  "com.github.japgolly.scalacss" %%% "ext-react" % v.scalaCss,
+  "org.denigma" %%% "threejs-facade" % "0.0.77-0.1.8"
 )
 
 

@@ -2,9 +2,10 @@ package scalajsreact.template.pages
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
+import mikey.threejs.FontLoader
 import org.scalajs.dom
 import org.scalajs.dom.html
-import threejs._
+import org.denigma.threejs.{Color, DirectionalLight, MeshBasicMaterial, MeshBasicMaterialParameters, Object3D, PerspectiveCamera, Scene, TextureLoader, Vector3, WebGLRenderer, WebGLRendererParameters}
 
 import scala.scalajs.js
 
@@ -60,7 +61,7 @@ object GeometryTestPage {
       cdm.backend.init(renderer)
 
       val light = new DirectionalLight()
-      light.color = new threejs.Color(0xaa7700)
+      light.color = new Color(0xaa7700)
       //light.position.set( 0, 1, 1 ).normalize()
       val lightPos = new Vector3(0, 1, 1)
       light.position.set(0, 0, 10)
@@ -80,7 +81,7 @@ object GeometryTestPage {
           val material = new MeshBasicMaterial(js.Dynamic.literal("map" -> texture).asInstanceOf[MeshBasicMaterialParameters])
 
           val objects: Seq[Object3D] = Seq(
-            textMeshWithMaterial(font, "hoho Geometry", material),
+            textMeshWithMaterial(font, "LOOK Geometry", material),
             //torushMeshFromMaterial(meshPhongMaterial())
             torushMeshFromMaterial(material)
           )
@@ -94,8 +95,6 @@ object GeometryTestPage {
       })
     })
     .build
-
-
 
   def apply() = component()
 }

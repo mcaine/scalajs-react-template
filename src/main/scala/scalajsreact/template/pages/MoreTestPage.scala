@@ -2,9 +2,9 @@ package scalajsreact.template.pages
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
+import org.denigma.threejs.{DirectionalLight, PerspectiveCamera, Scene, WebGLRenderer, Color, WebGLRendererParameters}
 import org.scalajs.dom
 import org.scalajs.dom.html
-import threejs._
 
 import scala.scalajs.js
 
@@ -60,15 +60,15 @@ object MoreTestPage {
       cdm.backend.init(renderer)
 
       val light = new DirectionalLight()
-      light.color = new threejs.Color(0xff0000)
+      light.color = new Color(0xff0000)
       light.position.set(0, 0, 100)
 
       val light2 = new DirectionalLight()
-      light2.color = new threejs.Color(0x00ff00)
+      light2.color = new Color(0x00ff00)
       light2.position.set(0, 100, 0)
 
       val light3 = new DirectionalLight()
-      light3.color = new threejs.Color(0x0000ff)
+      light3.color = new Color(0x0000ff)
       light3.position.set(100, 0, 0)
 
       scene.add(light)

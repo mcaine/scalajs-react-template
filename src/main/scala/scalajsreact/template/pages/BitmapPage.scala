@@ -2,10 +2,10 @@ package scalajsreact.template.pages
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
+import mikey.threejs.{Font, FontLoader}
+import org.denigma.threejs.{BoxGeometry, Color, DirectionalLight, Material, Mesh, MeshBasicMaterial, MeshBasicMaterialParameters, MeshLambertMaterial, MeshLambertMaterialParameters, MeshPhongMaterial, MeshPhongMaterialParameters, Object3D, PerspectiveCamera, Scene, TextGeometry, TextGeometryParameters, TextureLoader, TorusGeometry, Vector3, WebGLRenderer, WebGLRendererParameters}
 import org.scalajs.dom
 import org.scalajs.dom.html
-import scalajsreact.template.pages.BitmapPage.torushMeshFromMaterial
-import threejs._
 
 import scala.scalajs.js
 
@@ -112,7 +112,7 @@ object BitmapPage {
       cdm.backend.init(renderer)
 
       val light = new DirectionalLight()
-      light.color = new threejs.Color(0xaa7700)
+      light.color = new Color(0xaa7700)
       //light.position.set( 0, 1, 1 ).normalize()
       val lightPos = new Vector3(0, 1, 1)
       light.position.set(0, 0, 10)

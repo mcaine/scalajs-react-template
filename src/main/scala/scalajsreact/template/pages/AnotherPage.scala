@@ -5,6 +5,8 @@ import geomtest.randomText
 import japgolly.scalajs.react.{CtorType, _}
 import japgolly.scalajs.react.component.Scala.Component
 import japgolly.scalajs.react.vdom.html_<^._
+import mikey.threejs.FontLoader
+import mikey.threejs.Font
 import org.scalajs.dom
 import org.scalajs.dom.html
 import org.scalajs.dom.html.Element
@@ -12,7 +14,8 @@ import org.scalajs.dom.raw.HTMLElement
 import scalacss.DevDefaults._
 import scalacss.ScalaCssReact._
 import scalajsreact.template.pages.AnimationTestPage.webGLRenderer
-import threejs.{BoxGeometry, DirectionalLight, FontLoader, Mesh, MeshBasicMaterial, MeshPhongMaterial, MeshPhongMaterialParameters, PerspectiveCamera, Scene, TextGeometry, TextGeometryParameters, Vector3, WebGLRenderer, WebGLRendererParameters}
+import org.denigma.threejs.{BoxGeometry, Color, DirectionalLight, Material, Mesh, MeshBasicMaterial, MeshBasicMaterialParameters, MeshLambertMaterial, MeshLambertMaterialParameters, MeshPhongMaterial, MeshPhongMaterialParameters, Object3D, PerspectiveCamera, Scene, TextGeometry, TextGeometryParameters, TorusGeometry, Vector3, WebGLRenderer, WebGLRendererParameters}
+//import threejs.{BoxGeometry, DirectionalLight, FontLoader, Mesh, MeshBasicMaterial, MeshPhongMaterial, MeshPhongMaterialParameters, PerspectiveCamera, Scene, TextGeometry, TextGeometryParameters, Vector3, WebGLRenderer, WebGLRendererParameters}
 
 import scala.scalajs.js
 
@@ -68,17 +71,17 @@ object AnotherPage {
       cdm.backend.init(renderer)
 
       val light = new DirectionalLight()
-      light.color = new threejs.Color(0xff0000)
+      light.color = new Color(0xff0000)
       light.position.set(0, 0, 100)
 
 
       val light2 = new DirectionalLight()
-      light2.color = new threejs.Color(0x00ff00)
+      light2.color = new Color(0x00ff00)
       light2.position.set(0, 100, 0)
 
 
       val light3 = new DirectionalLight()
-      light3.color = new threejs.Color(0x0000ff)
+      light3.color = new Color(0x0000ff)
       //light.position.set( 0, 1, 1 ).normalize()
       //val lightPos2 = new Vector3(10, 11, 12)
       light3.position.set(100, 0, 0)

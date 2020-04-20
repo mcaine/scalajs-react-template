@@ -1,4 +1,6 @@
-import threejs.{BoxGeometry, Font, Material, Mesh, MeshLambertMaterial, MeshLambertMaterialParameters, MeshPhongMaterial, MeshPhongMaterialParameters, TextGeometry, TextGeometryParameters, TorusGeometry}
+//import threejs.{BoxGeometry, Font, Material, Mesh, MeshLambertMaterial, MeshLambertMaterialParameters, MeshPhongMaterial, MeshPhongMaterialParameters, TextGeometry, TextGeometryParameters, TorusGeometry}
+import mikey.threejs.Font
+import org.denigma.threejs.{BoxGeometry, Color, DirectionalLight, Material, Mesh, MeshBasicMaterial, MeshBasicMaterialParameters, MeshLambertMaterial, MeshLambertMaterialParameters, MeshPhongMaterial, MeshPhongMaterialParameters, Object3D, PerspectiveCamera, Scene, TextGeometry, TextGeometryParameters, TorusGeometry, Vector3, WebGLRenderer, WebGLRendererParameters}
 
 import scala.scalajs.js
 

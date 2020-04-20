@@ -4,7 +4,9 @@ import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.html
 import scalacss.DevDefaults._
-import threejs._
+import org.denigma.threejs.{BoxGeometry, Color, DirectionalLight, Material, Mesh, MeshBasicMaterial, MeshBasicMaterialParameters, MeshLambertMaterial, MeshLambertMaterialParameters, MeshPhongMaterial, MeshPhongMaterialParameters, Object3D, PerspectiveCamera, Scene, TextGeometry, TextGeometryParameters, TorusGeometry, Vector3, WebGLRenderer, WebGLRendererParameters}
+import mikey.threejs.FontLoader
+import mikey.threejs.Font
 
 import scala.scalajs.js
 
@@ -74,7 +76,7 @@ object YetAnotherPage {
       cdm.backend.init(renderer)
 
       val light = new DirectionalLight()
-      light.color = new threejs.Color(0xaa7700)
+      light.color = new Color(0xaa7700)
       //light.position.set( 0, 1, 1 ).normalize()
       val lightPos = new Vector3(0, 1, 1)
       light.position.set(0, 0, 10)
