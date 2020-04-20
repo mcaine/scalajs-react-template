@@ -8,7 +8,7 @@ import threejs._
 
 import scala.scalajs.js
 
-object AnimationTestPage {
+object MoreTestPage {
   import geomtest._
 
   case class State(title: String)
@@ -19,7 +19,7 @@ object AnimationTestPage {
 
     def render(s: State) =
       <.div(
-        <.div(^.id := "mikeyx2").withRef(outerRef)
+        <.div().withRef(outerRef)
       )
 
     // Use it
@@ -41,8 +41,8 @@ object AnimationTestPage {
     renderer
   }
 
-  val component = ScalaComponent.builder[Unit]("AnimationTestPage")
-    .initialState(State("Initial State for AnimationTestPage"))
+  val component = ScalaComponent.builder[Unit]("MoreTestPage")
+    .initialState(State("Initial State for MoreTestPage"))
     .renderBackend[Backend]
     .componentDidMount(cdm => Callback {
 
@@ -83,12 +83,21 @@ object AnimationTestPage {
       camera.position.x = 0
       camera.position.y = 0
 
-      val objects = randomCubes(1000)
+
+//      new FontLoader().load("fonts/helvetiker_regular.typeface.json", font => {
+//        println("Loaded font...")
+
+//        new TextureLoader().load("images/tup.jpg", texture => {
+//          println("Loaded the texture bitmap")
+
+          //val material = new MeshBasicMaterial(js.Dynamic.literal("map" -> texture).asInstanceOf[MeshBasicMaterialParameters])
+
+          val objects = randomCubes(100)
 
 
-      for (obj <- objects) {
-        scene.add(obj)
-      }
+          for (obj <- objects) {
+            scene.add(obj)
+          }
 
       var theta: Double = 0
       var radius = 500
@@ -106,13 +115,18 @@ object AnimationTestPage {
 
       def animate(p: Double):Unit  = {
         println("animation frame")
-        window.requestAnimationFrame( animate )
-        render()
+        window.requestAnimationFrame( animate );
+        render();
       }
 
       animate(0)
 
-    }).build
+
+//      })
+    })
+    .build
+
+
 
   def apply() = component()
 }
