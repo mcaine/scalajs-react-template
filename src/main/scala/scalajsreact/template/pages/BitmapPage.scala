@@ -2,7 +2,9 @@ package scalajsreact.template.pages
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
+import org.scalajs.dom
 import org.scalajs.dom.html
+import scalajsreact.template.pages.BitmapPage.torushMeshFromMaterial
 import threejs._
 
 import scala.scalajs.js
@@ -40,7 +42,6 @@ object BitmapPage {
   }
 
 
-
   def textMesh(font: Font, textStr: String) = {
     val textGeometryParameters = js.Dynamic.literal(
       "font" -> font,
@@ -65,31 +66,47 @@ object BitmapPage {
     val textGeometryParameters = js.Dynamic.literal(
       "font" -> font,
       "size" -> 5,
-      "height" -> 5
+      "height" -> 20
     ).asInstanceOf[TextGeometryParameters]
 
     var textGeometry = new TextGeometry(textStr, textGeometryParameters)
 
+    var text = new Mesh(textGeometry, material)
+    text
+  }
+
+  def torushMeshFromMaterial(material: Material) = {
+
+    val torusGeometry = new TorusGeometry(10, 3, 16, 100);
+
+    var mesh = new Mesh(torusGeometry, material);
+    mesh
+  }
+
+  def meshPhongMaterial() = {
     val meshPhongMaterialParameters = js.Dynamic.literal(
       "color" -> 0xaaaaaa,
       "specular" -> 0x773333,
       "shininess" -> 50
     ).asInstanceOf[MeshPhongMaterialParameters]
-
-
-    var text = new Mesh(textGeometry, material)
-    text
+    val meshPhongMaterial = new MeshPhongMaterial(meshPhongMaterialParameters)
+    meshPhongMaterial
   }
 
   val component = ScalaComponent.builder[Unit]("BitmapPage")
     .initialState(State("Initial State for BitmapPage"))
     .renderBackend[Backend]
     .componentDidMount(cdm => Callback {
-      val innerWidth = 1900
-      val innerHeight = 768
+
+      val window = dom.window
+      println("innerWidth is " + window.innerWidth)
+      println(s"innerHeight is ${window.innerHeight}")
+
+      val innerWidth = window.innerWidth.toLong
+      val innerHeight = window.innerHeight.toLong
 
       val scene = new Scene()
-      val camera = new PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 1000)
+      val camera = new PerspectiveCamera(120, innerWidth / innerHeight, 0.1, 1000)
 
       val renderer = webGLRenderer(innerWidth, innerHeight)
       cdm.backend.init(renderer)
@@ -102,20 +119,28 @@ object BitmapPage {
       scene.add(light)
 
       camera.position.z = 40
-      camera.position.x = 34
-      camera.position.y = 5
+      camera.position.x = 0
+      camera.position.y = 0
 
-      //addImageBitmap(,  )
+      new FontLoader().load("fonts/Pacifico_Regular.json", font => {
+        println("Loaded font...")
 
-      val fontLoader = new FontLoader()
-      fontLoader.load("fonts/Pacifico_Regular.json", font => {
-        //println("Loaded font...")
         new TextureLoader().load("images/tup.jpg", texture => {
-            //println("Loaded the texture bitmap")
-            val material = new MeshBasicMaterial( js.Dynamic.literal( "map" -> texture ).asInstanceOf[MeshBasicMaterialParameters] )
-            scene.add(textMeshWithMaterial(font, "wtf Bitmap page", material))
-            renderer.render(scene, camera)
-          })
+          println("Loaded the texture bitmap")
+
+          val material = new MeshBasicMaterial(js.Dynamic.literal("map" -> texture).asInstanceOf[MeshBasicMaterialParameters])
+
+          val objects: Seq[Object3D] = Seq(
+            textMeshWithMaterial(font, "i do like it", material),
+            torushMeshFromMaterial(meshPhongMaterial())
+          )
+
+          for (obj <- objects) {
+            scene.add(obj)
+          }
+
+          renderer.render(scene, camera)
+        })
       })
     })
     .build
