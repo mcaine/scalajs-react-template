@@ -5,6 +5,27 @@ import scala.scalajs.js
 
 package object geomtest {
 
+  def sceneWithLights() = {
+    val scene = new Scene()
+    val light = new DirectionalLight()
+    light.color = new Color(0xff0000)
+    light.position.set(0, 0, 100)
+
+    val light2 = new DirectionalLight()
+    light2.color = new Color(0x00ff00)
+    light2.position.set(0, 100, 0)
+
+    val light3 = new DirectionalLight()
+    light3.color = new Color(0x0000ff)
+    light3.position.set(100, 0, 0)
+
+    scene.add(light)
+    scene.add(light2)
+    scene.add(light3)
+
+    scene
+  }
+
   def randomMeshLambert() = {
     val meshLambertMaterialParameters = js.Dynamic.literal(
       "color" -> (Math.random() * 0xffffff).toInt
@@ -15,7 +36,7 @@ package object geomtest {
   }
 
   def randomCubes(n: Integer) = {
-    var geometry = new BoxGeometry( 20, 20, 20 );
+    var geometry = new BoxGeometry( 50, 50, 50 );
 
     val cubes = for (i <- 1 to n) yield {
       val material = randomMeshLambert()
@@ -43,7 +64,6 @@ package object geomtest {
 
     val objects = for (i <- 1 to n) yield {
       val material = randomMeshLambert()
-
 
       val textGeometryParameters = js.Dynamic.literal(
          "font" -> font,

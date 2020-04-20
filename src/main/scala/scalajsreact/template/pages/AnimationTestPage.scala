@@ -53,48 +53,23 @@ object AnimationTestPage {
       val innerWidth = window.innerWidth.toLong
       val innerHeight = window.innerHeight.toLong
 
-      val scene = new Scene()
-      val camera = new PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 10000)
+      val scene = sceneWithLights()
+      val camera = new PerspectiveCamera(90, innerWidth / innerHeight, 0.1, 10000)
 
       val renderer = webGLRenderer(innerWidth, innerHeight)
       cdm.backend.init(renderer)
 
-      val light = new DirectionalLight()
-      light.color = new Color(0xff0000)
-      light.position.set(0, 0, 100)
-
-
-      val light2 = new DirectionalLight()
-      light2.color = new Color(0x00ff00)
-      light2.position.set(0, 100, 0)
-
-
-      val light3 = new DirectionalLight()
-      light3.color = new Color(0x0000ff)
-      //light.position.set( 0, 1, 1 ).normalize()
-      //val lightPos2 = new Vector3(10, 11, 12)
-      light3.position.set(100, 0, 0)
-
-      scene.add(light)
-      scene.add(light2)
-      scene.add(light3)
-
-      camera.position.z = 900
-      camera.position.x = 0
-      camera.position.y = 0
-
       val objects = randomCubes(1000)
-
 
       for (obj <- objects) {
         scene.add(obj)
       }
 
       var theta: Double = 0
-      var radius = 500
+      var radius = 1000
 
       def render()  = {
-        theta = theta + 0.1
+        theta = theta + 0.3
 
         camera.position.x = radius * Math.sin( Math.PI * theta/180 )
         camera.position.y = radius * Math.sin( Math.PI * theta/180 )

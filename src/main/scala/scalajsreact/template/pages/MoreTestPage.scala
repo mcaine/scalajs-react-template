@@ -54,40 +54,22 @@ object MoreTestPage {
       val innerWidth = window.innerWidth.toLong
       val innerHeight = window.innerHeight.toLong
 
-      val scene = new Scene()
+//      val scene = new Scene()
       val camera = new PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 10000)
 
       val renderer = webGLRenderer(innerWidth, innerHeight)
       cdm.backend.init(renderer)
 
-      val light = new DirectionalLight()
-      light.color = new Color(0xff0000)
-      light.position.set(0, 0, 100)
+      val scene = sceneWithLights()
 
-      val light2 = new DirectionalLight()
-      light2.color = new Color(0x00ff00)
-      light2.position.set(0, 100, 0)
-
-      val light3 = new DirectionalLight()
-      light3.color = new Color(0x0000ff)
-      light3.position.set(100, 0, 0)
-
-      scene.add(light)
-      scene.add(light2)
-      scene.add(light3)
-
-      camera.position.z = 900
-      camera.position.x = 0
-      camera.position.y = 0
-
-      val objects = randomCubes(100)
+      val objects = randomCubes(200)
 
       for (obj <- objects) {
         scene.add(obj)
       }
 
       var theta: Double = 0
-      var radius = 500
+      var radius = 2000
 
       def render() = {
         theta = theta + 0.1
@@ -95,13 +77,14 @@ object MoreTestPage {
         camera.position.x = radius * Math.sin(Math.PI * theta / 180)
         camera.position.y = radius * Math.sin(Math.PI * theta / 180)
         camera.position.z = radius * Math.cos(Math.PI * theta / 180)
+
         camera.lookAt(scene.position);
         camera.updateMatrixWorld();
         renderer.render(scene, camera)
       }
 
       def animate(p: Double): Unit = {
-        println("animation frame")
+        //println("animation frame")
         window.requestAnimationFrame(animate);
         render();
       }
