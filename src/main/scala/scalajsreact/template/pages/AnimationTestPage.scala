@@ -60,11 +60,24 @@ object AnimationTestPage {
       cdm.backend.init(renderer)
 
       val light = new DirectionalLight()
-      light.color = new threejs.Color(0xaa7700)
+      light.color = new threejs.Color(0xff0000)
+      light.position.set(0, 0, 100)
+
+
+      val light2 = new DirectionalLight()
+      light2.color = new threejs.Color(0x00ff00)
+      light2.position.set(0, 100, 0)
+
+
+      val light3 = new DirectionalLight()
+      light3.color = new threejs.Color(0x0000ff)
       //light.position.set( 0, 1, 1 ).normalize()
-      val lightPos = new Vector3(0, 1, 1)
-      light.position.set(0, 0, 10)
+      //val lightPos2 = new Vector3(10, 11, 12)
+      light3.position.set(100, 0, 0)
+
       scene.add(light)
+      scene.add(light2)
+      scene.add(light3)
 
       camera.position.z = 900
       camera.position.x = 0
