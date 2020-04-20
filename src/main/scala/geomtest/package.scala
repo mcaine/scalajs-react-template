@@ -1,8 +1,42 @@
-import threejs.{Font, Material, Mesh, MeshPhongMaterial, MeshPhongMaterialParameters, TextGeometry, TextGeometryParameters, TorusGeometry}
+import threejs.{BoxGeometry, Font, Material, Mesh, MeshLambertMaterial, MeshLambertMaterialParameters, MeshPhongMaterial, MeshPhongMaterialParameters, TextGeometry, TextGeometryParameters, TorusGeometry}
 
 import scala.scalajs.js
 
 package object geomtest {
+
+  def material69() = {
+    val meshLambertMaterialParameters = js.Dynamic.literal(
+      "color" -> (Math.random() * 0xffffff).toInt
+    ).asInstanceOf[MeshLambertMaterialParameters]
+
+    val material = new MeshLambertMaterial(meshLambertMaterialParameters)
+    material
+  }
+
+  def randomCubes(n: Integer) = {
+    var geometry = new BoxGeometry( 20, 20, 20 );
+
+    val cubes = for (i <- 1 to n) yield {
+      val material = material69()
+      val obj = new Mesh(geometry, material)
+
+      obj.position.x = Math.random() * 800 - 400
+      obj.position.y = Math.random() * 800 - 400
+      obj.position.z = Math.random() * 800 - 400
+
+      obj.rotation.x = Math.random() * 2 * Math.PI
+      obj.rotation.y = Math.random() * 2 * Math.PI
+      obj.rotation.z = Math.random() * 2 * Math.PI
+
+      //obj.scale.x = Math.random() + 0.5
+      //obj.scale.y = Math.random() + 0.5
+      //obj.scale.z = Math.random() + 0.5
+
+      obj
+    }
+
+    cubes
+  }
 
   def textMesh(font: Font, textStr: String) = {
     val textGeometryParameters = js.Dynamic.literal(
