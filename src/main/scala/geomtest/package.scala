@@ -4,7 +4,7 @@ import scala.scalajs.js
 
 package object geomtest {
 
-  def material69() = {
+  def randomMeshLambert() = {
     val meshLambertMaterialParameters = js.Dynamic.literal(
       "color" -> (Math.random() * 0xffffff).toInt
     ).asInstanceOf[MeshLambertMaterialParameters]
@@ -17,7 +17,7 @@ package object geomtest {
     var geometry = new BoxGeometry( 20, 20, 20 );
 
     val cubes = for (i <- 1 to n) yield {
-      val material = material69()
+      val material = randomMeshLambert()
       val obj = new Mesh(geometry, material)
 
       obj.position.x = Math.random() * 800 - 400
@@ -36,6 +36,39 @@ package object geomtest {
     }
 
     cubes
+  }
+
+  def randomText(font: Font, textStr: String, n: Integer) = {
+
+    val objects = for (i <- 1 to n) yield {
+      val material = randomMeshLambert()
+
+
+      val textGeometryParameters = js.Dynamic.literal(
+         "font" -> font,
+         "size" -> (50 + 50 * Math.random()),
+         "height" -> (5 + 5 * Math.random())
+      ).asInstanceOf[TextGeometryParameters]
+
+      var textGeometry = new TextGeometry(textStr, textGeometryParameters)
+
+      val obj = new Mesh(textGeometry, material)
+      obj.position.x = Math.random() * 800 - 400
+      obj.position.y = Math.random() * 800 - 400
+      obj.position.z = Math.random() * 800 - 400
+
+      obj.rotation.x = Math.random() * 2 * Math.PI
+      obj.rotation.y = Math.random() * 2 * Math.PI
+      obj.rotation.z = Math.random() * 2 * Math.PI
+
+      obj.scale.x = Math.random() + 0.5
+      obj.scale.y = Math.random() + 0.5
+      obj.scale.z = Math.random() + 0.5
+
+      obj
+    }
+
+    objects
   }
 
   def textMesh(font: Font, textStr: String) = {

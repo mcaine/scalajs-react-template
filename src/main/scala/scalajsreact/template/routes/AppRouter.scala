@@ -26,7 +26,7 @@ object AppRouter {
 
     (trimSlashes
       | staticRoute(root, Home) ~> render(HomePage())
-      | staticRoute(Path("#another"), Another) ~> render(BitmapPage())
+      | staticRoute(Path("#another"), Another) ~> render(AnotherPage())
       | staticRoute(Path("#geometry"), Geometry) ~> render(GeometryTestPage())
       | staticRoute(Path("#animation"), Animation) ~> render(AnimationTestPage())
       | itemRoutes)

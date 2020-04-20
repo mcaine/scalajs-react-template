@@ -1,5 +1,7 @@
 package scalajsreact.template.pages
 
+import geomtest.randomCubes
+import geomtest.randomText
 import japgolly.scalajs.react.{CtorType, _}
 import japgolly.scalajs.react.component.Scala.Component
 import japgolly.scalajs.react.vdom.html_<^._
@@ -9,6 +11,7 @@ import org.scalajs.dom.html.Element
 import org.scalajs.dom.raw.HTMLElement
 import scalacss.DevDefaults._
 import scalacss.ScalaCssReact._
+import scalajsreact.template.pages.AnimationTestPage.webGLRenderer
 import threejs.{BoxGeometry, DirectionalLight, FontLoader, Mesh, MeshBasicMaterial, MeshPhongMaterial, MeshPhongMaterialParameters, PerspectiveCamera, Scene, TextGeometry, TextGeometryParameters, Vector3, WebGLRenderer, WebGLRendererParameters}
 
 import scala.scalajs.js
@@ -31,7 +34,7 @@ object AnotherPage {
 
     def render(s: State) =
       <.div(
-        <.div(^.id:="mikeyx").withRef(outerRef)
+        <.div().withRef(outerRef)
       )
 
     // Use it
@@ -51,75 +54,80 @@ object AnotherPage {
     .renderBackend[Backend]
     .componentDidMount(cdm => Callback {
 
-        val innerWidth = 1920
-        val innerHeight = 768
+      val window = dom.window
+      println("innerWidth is " + window.innerWidth)
+      println(s"innerHeight is ${window.innerHeight}")
 
-        val scene = new Scene()
-        val camera = new PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 1000)
-        //var camera = new PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+      val innerWidth = window.innerWidth.toLong
+      val innerHeight = window.innerHeight.toLong
 
-        val webGLRendererParameters = js.Dynamic.literal(
-          "antialias" -> true
-        ).asInstanceOf[WebGLRendererParameters]
+      val scene = new Scene()
+      val camera = new PerspectiveCamera(60, innerWidth / innerHeight, 0.1, 10000)
 
-        val renderer: WebGLRenderer = new WebGLRenderer(webGLRendererParameters)
-        renderer.setSize(innerWidth, innerHeight);
+      val renderer = webGLRenderer(innerWidth, innerHeight)
+      cdm.backend.init(renderer)
 
-        // val gameHTMLContainer: HTMLElement = dom.document.getElementById("mikeyx").asInstanceOf[HTMLElement]
-        // gameHTMLContainer.appendChild(renderer.domElement)
+      val light = new DirectionalLight()
+      light.color = new threejs.Color(0xff0000)
+      light.position.set(0, 0, 100)
 
-        cdm.backend.init(renderer)
 
-        val geometry = new BoxGeometry(1, 1, 1)
-        //val geometry2 = new TorusKnotGeometry(2.5);
-        val geometry2 = new BoxGeometry(1, 1, 1)
-        val material = new MeshBasicMaterial()
-        material.color = new threejs.Color(0xffff00)
+      val light2 = new DirectionalLight()
+      light2.color = new threejs.Color(0x00ff00)
+      light2.position.set(0, 100, 0)
 
-        val fontLoader = new FontLoader()
-        //fontLoader.load("https://rawgit.com/mrdoob/three.js/dev/examples/fonts/helvetiker_regular.typeface.json", (f: threejs.Font) => {
-        //fontLoader.load("fonts/helvetiker_regular.typeface.json", (f: threejs.Font) => {
-        fontLoader.load("fonts/Old computer St_Regular.json", f => {
 
-//          cdm.backend.init(renderer)
+      val light3 = new DirectionalLight()
+      light3.color = new threejs.Color(0x0000ff)
+      //light.position.set( 0, 1, 1 ).normalize()
+      //val lightPos2 = new Vector3(10, 11, 12)
+      light3.position.set(100, 0, 0)
 
-          println("Loaded font...")
+      scene.add(light)
+      scene.add(light2)
+      scene.add(light3)
 
-          val textGeometryParameters = js.Dynamic.literal(
-            "font" -> f,
-            "size" -> 2.5,
-            "height" -> 2
-          ).asInstanceOf[TextGeometryParameters]
+      camera.position.z = 900
+      camera.position.x = 0
+      camera.position.y = 0
 
-          var textGeometry = new TextGeometry("Mike is deffo the Best!", textGeometryParameters)
+      new FontLoader().load("fonts/Pacifico_Regular.json", font => {
+        println("Loaded font...")
 
-          val meshPhongMaterialParameters = js.Dynamic.literal(
-            "color" -> 0xaaaaaa,
-            "specular" -> 0x773333,
-            "shininess" -> 50
-          ).asInstanceOf[MeshPhongMaterialParameters]
+        val objects = randomText(font, "Turmp", 100)
 
-          var textMaterial = new MeshPhongMaterial(meshPhongMaterialParameters)
-          var text = new Mesh(textGeometry, textMaterial)
+        for (obj <- objects) {
+          scene.add(obj)
+        }
 
-          scene.add(text)
+        var theta: Double = 0
+        var radius = 500
 
-          val light = new DirectionalLight();
-          light.color = new threejs.Color(0xaa7700)
-          //light.position.set( 0, 1, 1 ).normalize()
-          val lightPos = new Vector3(0, 1, 1)
-          light.position.set(0, 0, 10)
-          scene.add(light)
+        def render() = {
+          theta = theta + 0.1
 
-          camera.position.z = 50;
-          camera.position.x = 34;
-          camera.position.y = 5;
+          camera.position.x = radius * Math.sin(Math.PI * theta / 180)
+          camera.position.y = radius * Math.sin(Math.PI * theta / 180)
+          camera.position.z = radius * Math.cos(Math.PI * theta / 180)
+          camera.lookAt(scene.position);
+          camera.updateMatrixWorld();
+          renderer.render(scene, camera)
+        }
 
-          renderer.render(scene, camera);
+        def animate(p: Double): Unit = {
+          //println("animation frame")
+          window.requestAnimationFrame(animate);
+          render();
+        }
 
-        })
+        animate(0)
       })
-      .build
+
+
+      //      })
+    })
+    .build
+
 
   def apply() = component()
 }
