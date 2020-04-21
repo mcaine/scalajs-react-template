@@ -91,7 +91,7 @@ object GodPage {
       new FontLoader().load("fonts/Old computer St_Regular.json", font => {
         println("Loaded font...")
 
-        val objects = randomText(font, "tumpy", 100)
+        val objects = randomText(font, "MIKE", 100)
 
         for (obj <- objects) {
           scene.add(obj)
@@ -100,27 +100,27 @@ object GodPage {
         var theta: Double = 0
         var radius = 500
 
-        def postProcessing() = {
-          val scene = new Scene()
-          val camera = new OrthographicCamera( - 0.5, 0.5, 0.5, - 0.5, - 10000, 10000 )
-          camera.position.z = 100
-          scene.add(camera)
-
-          val renderTargetWidth: Double = 1000
-          val renderTargetHeight: Double = 1000
-
-
-          val pars = js.Dynamic.literal(
-            "minFilter" -> THREE.LinearFilter,
-            "magFilter" -> THREE.LinearFilter,
-            "format" -> THREE.RGBFormat
-          ).asInstanceOf[WebGLRenderTargetOptions]
-
-         // var pars = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat };
-          val rtTextureColors = new WebGLRenderTarget( renderTargetWidth, renderTargetHeight, pars );
-
-
-        }
+//        def postProcessing() = {
+//          val scene = new Scene()
+//          val camera = new OrthographicCamera( - 0.5, 0.5, 0.5, - 0.5, - 10000, 10000 )
+//          camera.position.z = 100
+//          scene.add(camera)
+//
+//          val renderTargetWidth: Double = 1000
+//          val renderTargetHeight: Double = 1000
+//
+//
+//          val pars = js.Dynamic.literal(
+//            "minFilter" -> THREE.LinearFilter,
+//            "magFilter" -> THREE.LinearFilter,
+//            "format" -> THREE.RGBFormat
+//          ).asInstanceOf[WebGLRenderTargetOptions]
+//
+//         // var pars = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat };
+//          val rtTextureColors = new WebGLRenderTarget( renderTargetWidth, renderTargetHeight, pars );
+//
+//
+//        }
 
         def render() = {
           theta = theta + 0.1

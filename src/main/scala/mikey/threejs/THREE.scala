@@ -7,6 +7,7 @@ import org.denigma.threejs.{BufferGeometry, ExtrudeGeometry, Geometry, Shape, Te
 import scala.scalajs.js
 import scala.scalajs.js.annotation._
 
+@js.native
 @JSGlobal("THREE.FontLoader")
 class FontLoader extends js.Object {
   def this(showStatus: Boolean = js.native) = this()
@@ -15,9 +16,10 @@ class FontLoader extends js.Object {
   var onLoad: js.Function0[Unit] = js.native
   var onProgress: js.Function3[js.Any, Double, Double, Unit] = js.native
   var onError: js.Function0[Unit] = js.native
-  def isFont = true
+  //def isFont = true
 }
 
+@js.native
 @JSGlobal("THREE.Font")
 class Font extends js.Object {
 }
